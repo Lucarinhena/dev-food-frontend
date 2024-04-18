@@ -25,17 +25,21 @@
     height: 2.5rem;
     font-size: 1.2rem;
   }
-}
 
+  h1 {
+    color: var(--white);
+    padding-bottom: 1rem;
+  }
 
-.text {
-  margin-top: 1rem;
-  color: var(--white);
-  cursor: pointer;
-}
+  .text {
+    margin-top: 1rem;
+    color: var(--white);
+    cursor: pointer;
+  }
 
-@media (max-width: 620px) {
-  .login {
-    width: 90%;
+  @media (max-width: 620px) {
+    .login {
+      width: 90%;
+    }
   }
 }
