@@ -1,7 +1,12 @@
-import '../styles/globals.scss'
+import "../styles/globals.scss";
 import { AppProps } from "next/app";
-function MyApp({Component, pageProps}) {
-    return <Component {...pageProps} />
+import { AuthProvider } from "@/contexts/AuthContext";
+function MyApp({ Component, pageProps }) {
+  return (
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
 }
 
 export default MyApp;
