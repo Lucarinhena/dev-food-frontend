@@ -27,7 +27,7 @@ export default function Home() {
     setTimeout(async () => {
       await signIn(data);
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }
 
   return (
