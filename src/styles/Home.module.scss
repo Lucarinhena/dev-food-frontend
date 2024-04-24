@@ -31,15 +31,16 @@
     padding-bottom: 1rem;
   }
 
-  .text {
-    margin-top: 1rem;
-    color: var(--white);
-    cursor: pointer;
-  }
+}
 
-  @media (max-width: 620px) {
-    .login {
-      width: 90%;
-    }
+.text {
+  margin-top: 1rem;
+  color: var(--white);
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .login {
+    width: 90%;
   }
 }
