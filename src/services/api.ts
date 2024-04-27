@@ -7,9 +7,9 @@ export function setupApiClient(context = undefined) {
   let cookies = parseCookies(context);
 
   const api = axios.create({
-    baseURL: "http://localhost:3333/",
+    baseURL: "http://localhost:3333",
     headers: {
-      Authorization: `Bearer ${cookies["devFood.token"]}`,
+      Authorization: `Bearer ${cookies["@nextauth.token"]}`,
     },
   });
   api.interceptors.response.use(
