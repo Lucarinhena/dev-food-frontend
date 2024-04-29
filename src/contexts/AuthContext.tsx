@@ -63,8 +63,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser({ id, name, email });
 
       api.defaults.headers["Authorization"] = `Bearer${token}`;
+
+      toast.success("Logado com Sucesso!");
+
       Router.push("/dashboard");
     } catch (error) {
+      toast.error("Error ao logar :(");
       console.log("Erro ao Logar :/");
     }
   }
@@ -76,7 +80,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
         password,
       });
-      toast.success('Cadastrado com Sucesso!')
+      toast.success("Cadastrado com Sucesso!");
 
       Router.push("/");
     } catch (error) {

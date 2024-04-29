@@ -5,6 +5,7 @@ import logoImg from "../../../public/devFood.png";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import styles from "../../styles/Home.module.scss";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -21,7 +22,7 @@ export default function SignUp() {
     e.preventDefault();
 
     if (name === "" || email === "" || password === "") {
-      alert("Preencha todos os campos");
+      toast.error('Preencha todos os campos')
       return;
     }
     setLoading(true);
