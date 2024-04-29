@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from "react";
 import { api } from "@/services/apiClient";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { toast } from "react-toastify";
 import Router from "next/router";
 
 type AuthContextData = {
@@ -8,12 +9,19 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
+  signUp: (credentials: SignUpProps) => Promise<void>;
 };
 
 type UserProps = {
   id: string;
   name: string;
   email: string;
+};
+
+type SignUpProps = {
+  name: string;
+  email: string;
+  password: string;
 };
 
 type SignInProps = {
@@ -29,7 +37,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function signOut() {
   try {
-    destroyCookie(undefined, "devFood.token");
+    destroyCookie(undefined, "@nextauth.token");
     Router.push("/");
   } catch (error) {}
 }
@@ -56,14 +64,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers["Authorization"] = `Bearer${token}`;
       Router.push("/dashboard");
-
     } catch (error) {
       console.log("Erro ao Logar :/");
     }
   }
 
+  async function signUp({ name, email, password }: SignUpProps) {
+    try {
+      const reponse = await api.post("/users", {
+        name,
+        email,
+        password,
+      });
+      toast.success('Cadastrado com Sucesso!')
+
+      Router.push("/");
+    } catch (error) {
+      console.log("Erro ao Cadastrar", error);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );

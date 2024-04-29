@@ -36,7 +36,7 @@ export default function Home() {
         <title>DevFood - Faça seu login!</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo img"/>
+        <Image src={logoImg} alt="Logo img" />
         <div className={styles.login}>
           <form onSubmit={handleLogin}>
             <Input
