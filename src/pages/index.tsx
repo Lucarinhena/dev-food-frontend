@@ -7,6 +7,7 @@ import { useContext } from "react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import styles from "../styles/Home.module.scss";
+import { canSSRGuest } from "@/utils/canSSRGuest";
 import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Home() {
@@ -63,3 +64,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (context) => {
+  return {
+    props: {}
+  }
+} )
