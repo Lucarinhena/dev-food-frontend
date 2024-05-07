@@ -1,10 +1,17 @@
 import { canSSRAuth } from "@/utils/canSSRAuth";
+import { Header } from "@/components/Header/Header";
+import Head from "next/head";
 
 export default function Dashboard() {
   return (
-    <div>
-      <h1>Olá Dashboard</h1>
-    </div>
+    <>
+      <Head>
+        <title>Painel DevFood</title>
+      </Head>
+      <div>
+        <Header/>
+      </div>
+    </>
   );
 }
 
