@@ -25,7 +25,7 @@ export function Header() {
           </Link>
 
           <button onClick={signOut}>
-            <TbLogout color="#fff" />
+            <TbLogout color="#fff" size={25}/>
           </button>
         </nav>
       </div>
