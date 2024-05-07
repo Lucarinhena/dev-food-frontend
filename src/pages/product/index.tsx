@@ -5,25 +5,42 @@ import { canSSRAuth } from "@/utils/canSSRAuth";
 import { FiUpload } from "react-icons/fi";
 import { useState, ChangeEvent } from "react";
 import { toast } from "react-toastify";
+import { setupApiClient } from "@/services/api";
 
-export default function Product() {
+type ItemProps = {
+  id: string;
+  name: string;
+};
+
+interface CategoryProps {
+  categoryList: ItemProps[];
+}
+
+export default function Product({ categoryList }: CategoryProps) {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [imageAvatar, setImageAvatar] = useState(null);
+  const [categories, setCategories] = useState(categoryList || [""]);
+  const [categorySelected, setCategorySelected] = useState(0);
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
-        toast.error('Envie uma Imagem')
-        return
+      toast.error("Envie uma Imagem");
+      return;
     }
-    const image = e.target.files[0]
+    const image = e.target.files[0];
     if (!image) {
-        return
-    } 
-    if (image.type === 'image/jpeg' || image.type === 'image/png') {
-        setImageAvatar(image)
-        setAvatarUrl(URL.createObjectURL(image))
+      return;
+    }
+    if (image.type === "image/jpeg" || image.type === "image/png") {
+      setImageAvatar(image);
+      setAvatarUrl(URL.createObjectURL(image));
     }
   }
+
+  function handleChangeCategory(e) {
+    setCategorySelected(e.target.value);
+  }
+
   return (
     <>
       <Head>
@@ -58,9 +75,14 @@ export default function Product() {
               )}
             </label>
 
-            <select>
-              <option>Bebidas</option>
-              <option>Bebidas</option>
+            <select value={categorySelected} onChange={handleChangeCategory}>
+              {categories.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
             </select>
 
             <input
@@ -90,7 +112,12 @@ export default function Product() {
 }
 
 export const getServerSideProps = canSSRAuth(async (context) => {
+  const apiClient = setupApiClient(context);
+  const response = await apiClient.get("/category");
+
   return {
-    props: {},
+    props: {
+      categoryList: response.data,
+    },
   };
 });
