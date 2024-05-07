@@ -17,7 +17,7 @@ export function Header() {
 
         <nav className={styles.menuNav}>
           <Link href="/category">
-            <p>Nova Categoria</p>
+            <p>Categorias</p>
           </Link>
 
           <Link href="/product">
